@@ -4,8 +4,8 @@ import os
 import sys
 import time
 
-# ─── ANSI COLOR CODES ───────────────────────────────────────────────
-R = "\033[0m"          # RESET
+
+R = "\033[0m"         
 RED = "\033[31m"
 GREEN = "\033[32m"
 YELLOW = "\033[33m"
@@ -19,18 +19,18 @@ def warna(text, color):
     return f"{color}{text}{R}"
 
 
-# ─── CROSS-PLATFORM UTILS ───────────────────────────────────────────
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def getch():
     try:
-        # Windows
+        
         import msvcrt
         return msvcrt.getch().decode('utf-8')
     except ImportError:
-        # Unix-like (Linux/macOS)
+  
         import tty, termios
         fd = sys.stdin.fileno()
         old = termios.tcgetattr(fd)
@@ -42,7 +42,6 @@ def getch():
         return ch
 
 
-# ─── LOADING ANIMATION ──────────────────────────────────────────────
 def loading_animation(text, duration=1.9):
     print(f"\n{CYAN}{text}{R}", end='', flush=True)
     for _ in range(int(duration / 0.5)):
@@ -51,7 +50,7 @@ def loading_animation(text, duration=1.9):
     print('')  
 
 
-# ─── CORE FUNCTIONS ──────────────────────────────────────────────────
+
 def normalisasi(teks):
     return teks.lower().replace(" ", "")
 
@@ -168,7 +167,7 @@ def tampilkan_detail_menu(row):
 
 
 
-# ─── HELPER DISPLAY FUNCTIONS ───────────────────────────────────────
+
 def tampilkan_daftar_bahan(hasil, input_bahan):
     print(f"\n{GREEN}✅ Ditemukan {len(hasil)} menu:{R}")
     for i, row in enumerate(hasil, 1):
@@ -189,7 +188,7 @@ def tampilkan_daftar_budget(hasil, budget):
     print(f"\n{CYAN}Pilih nomor, 'acak', utawa 0 kanggo balik.{R}")
 
 
-# ─── MENU NAVIGASI SETELAH DETAIL ──────────────────────────────────
+
 def menu_setelah_detail(daftar_func=None, *args):
     while True:
         print(f"\n{CYAN}Bar iki arep nyapo?{R}")
@@ -217,7 +216,7 @@ def menu_setelah_detail(daftar_func=None, *args):
             print(f"{RED}❌ Diomongi 1/2/0 kok mbatek{R}")
 
 
-# ─── REKOMENDASI FUNCTIONS ──────────────────────────────────────────
+
 def rekomendasi_berdasarkan_bahan(data_rows):
     print(f"\n{BOLD}{CYAN}🔍 Rekomendasi miturut bahane mawon{R}")
     input_bahan = input(f"{YELLOW}Ketiken bahan sing ana (pisahkan dengan koma): {R}").strip()
@@ -228,7 +227,7 @@ def rekomendasi_berdasarkan_bahan(data_rows):
         input("\nPenceten Enter kanggo balik")
         return
 
-    # --- Animasi Loading ---
+    
     loading_animation("sik tak golekna sing cocok...")
     
     hasil = cek_cocok_dan_filter_bahan(perbaikan_input, data_rows)
@@ -313,7 +312,7 @@ def rekomendasi_berdasarkan_budget(data_rows):
             print(f"{RED}❌ Apa sing diketik iku? gak eruh aku{R}")
 
 
-# ─── MAIN MENU ──────────────────────────────────────────────────────
+
 def tampilkan_beranda():
     print(f"{YELLOW}╔════════════════════════════════════════════╗{R}")
     print(f"{YELLOW}║              🍜 Sinau RESEP 🌶️              ║{R}")
@@ -328,7 +327,7 @@ def tampilkan_beranda():
     print(f"\n{CYAN}➤ Pencet tombol (1, 2, atau 0) tanpa Enter...{R}")
 
 
-# ─── MAIN PROGRAM ───────────────────────────────────────────────────
+
 def main():
     data_rows = []
     try:
@@ -339,7 +338,7 @@ def main():
                     data_rows.append(row)
     except FileNotFoundError:
         clear_screen()
-        print(f"\n{RED}❌ File 'dataset_makanan_jawa.csv' ora ketemu, lali didownload ya?{R}")
+        print(f"\n{RED}❌ File 'dataset_makanan_jawa.csv' ora ketemu{R}")
         return
     except Exception as e:
         clear_screen()
@@ -355,7 +354,7 @@ def main():
     input(f"{CYAN}Penceten Enter Kanggo Nglekasi {R}")
     clear_screen()
 
-    # Main loop — instant keypress
+
     while True:
         tampilkan_beranda()
         try:
